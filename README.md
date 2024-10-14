@@ -71,6 +71,35 @@ O `main` deve apresentar um menu de opções ao usuário, que fique em loop e pe
 
 </div>
 
+# Execução
+
+<div align="justify">
+
+Esse programa possui um arquivo `Makefile` que realiza todo o procedimento de compilação e execução. Para tanto, temos as seguintes diretrizes de execução:
+
+</div>
+
+### Makefile
+
+<table align="center">
+  <tr>
+    <th>Comando</th>
+    <th>Função</th>
+  </tr>
+  <tr>
+    <td><code>make clean</code></td>
+    <td>Apaga a última compilação realizada contida na pasta build</td>
+  </tr>
+  <tr>
+    <td><code>make</code></td>
+    <td>Executa a compilação do programa utilizando o gcc, e o resultado vai para a pasta build</td>
+  </tr>
+  <tr>
+    <td><code>make run</code></td>
+    <td>Executa o programa da pasta build após a realização da compilação</td>
+  </tr>
+</table>
+
 # 📞 Contato
 
 <table align="center">
