@@ -5,9 +5,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define MAX_CAIXAS 5
+
 typedef struct
 {
-    Caixa *caixas[5];
+    Caixa *caixas[MAX_CAIXAS];
 } Supermercado;
 
 Supermercado *criar_supermercado();

@@ -53,7 +53,7 @@ void imprimir_fila(FilaPrioridade *fila)
     NodaFila *atual = fila->frente;
     while (atual)
     {
-        printf("Cliente: %s | Prioridade: %d\n", atual->cliente->nome, atual->cliente->prioridade);
+        printf("Cliente: %s\n | CPF: %s\n | Prioridade: %d\n | Itens no Carrinho: %d\n", atual->cliente->nome, atual->cliente->cpf, atual->cliente->prioridade, atual->cliente->itens);
         atual = atual->proximo;
     }
 }
