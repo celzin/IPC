@@ -7,7 +7,7 @@ int main()
     int opcao;
     do
     {
-        printf("\n=== MENU ===\n");
+        printf("\n============ MENU ============\n");
         printf("1. Cadastrar Cliente\n");
         printf("2. Atender Cliente\n");
         printf("3. Abrir/Fechar Caixa\n");

@@ -50,8 +50,7 @@ void cadastrar_cliente(Supermercado *mercado)
         printf("Prioridade (1-Alta, 2-Média, 3-Baixa): ");
         if (scanf("%d", &prioridade) != 1)
         {
-            while (getchar() != '\n')
-                ;
+            while (getchar() != '\n');
             prioridade = 0;
         }
         if (prioridade < 1 || prioridade > 3)
@@ -67,8 +66,7 @@ void cadastrar_cliente(Supermercado *mercado)
         if (scanf("%d", &itens) != 1 || itens < 1)
         {
             printf("Entrada inválida! Digite um número de itens válido (maior que 0).\n");
-            while (getchar() != '\n')
-                ;
+            while (getchar() != '\n');
             itens = 0;
         }
     } while (itens < 1);
@@ -79,8 +77,7 @@ void cadastrar_cliente(Supermercado *mercado)
         printf("Escolha o caixa (1-%d): ", MAX_CAIXAS);
         if (scanf("%d", &id_caixa) != 1)
         {
-            while (getchar() != '\n')
-                ;
+            while (getchar() != '\n');
             id_caixa = 0;
         }
         if (id_caixa < 1 || id_caixa > MAX_CAIXAS)
@@ -95,6 +92,7 @@ void cadastrar_cliente(Supermercado *mercado)
 
     Cliente *novo_cliente = criar_cliente(nome, cpf, prioridade, itens);
     adicionar_cliente(mercado->caixas[id_caixa - 1]->fila, novo_cliente);
+    printf("\n- Cliente cadastrado com sucesso!\n");
 }
 
 void atender_cliente_supermercado(Supermercado *mercado)
@@ -112,12 +110,12 @@ void atender_cliente_supermercado(Supermercado *mercado)
     Cliente *cliente_atendido = atender_cliente(mercado->caixas[id_caixa - 1]->fila);
     if (cliente_atendido)
     {
-        printf("Atendendo cliente: %s\n", cliente_atendido->nome);
+        printf("\nAtendendo cliente: %s\n", cliente_atendido->nome);
         free(cliente_atendido);
     }
     else
     {
-        printf("Nenhum cliente na fila do caixa %d.\n", id_caixa);
+        printf("\nNenhum cliente na fila do caixa %d.\n", id_caixa);
     }
 }
 
@@ -135,14 +133,20 @@ void abrir_fechar_caixa(Supermercado *mercado)
         }
     }
 
-    printf("Escolha o caixa (1-%d) para abrir ou fechar: ", MAX_CAIXAS);
-    scanf("%d", &id_caixa);
-
-    if (id_caixa < 1 || id_caixa > MAX_CAIXAS)
+    do // Validacao da escolha de Caixa
     {
-        printf("Número de caixa inválido! Escolha entre 1 e %d.\n", MAX_CAIXAS);
-        return;
-    }
+        printf("Escolha o caixa (1-%d) para abrir ou fechar: ", MAX_CAIXAS);
+        if (scanf("%d", &id_caixa) != 1)
+        {
+            printf("Entrada inválida! Digite um número entre 1 e %d.\n", MAX_CAIXAS);
+            while (getchar() != '\n');
+            id_caixa = 0; // Define como inválido para repetir o loop
+        }
+        else if (id_caixa < 1 || id_caixa > MAX_CAIXAS)
+        {
+            printf("Número de caixa inválido! Escolha entre 1 e %d.\n", MAX_CAIXAS);
+        }
+    } while (id_caixa < 1 || id_caixa > MAX_CAIXAS);
 
     Caixa *caixa = mercado->caixas[id_caixa - 1];
 
@@ -151,38 +155,51 @@ void abrir_fechar_caixa(Supermercado *mercado)
         // Se for o último caixa aberto, impedir o fechamento
         if (caixas_abertos == 1)
         {
-            printf("Erro! Não é possível fechar o último caixa aberto.\n");
+            printf("\nErro! Não é possível fechar o último caixa aberto.\n");
             return;
         }
 
-        printf("Fechando caixa %d...\n", id_caixa);
+        printf("\nFechando caixa %d...\n", id_caixa);
         caixa->estado = 0;
 
-        // Realocar clientes para outros caixas abertos
+        // Encontrar o caixa aberto com menos clientes
+        int menor_fila_index = -1;
+        int menor_tamanho_fila = __INT_MAX__; // Inicializa com um valor alto
+
+        for (int i = 0; i < MAX_CAIXAS; i++)
+        {
+            if (mercado->caixas[i]->estado)
+            {
+                int tamanho_fila = 0;
+                NodaFila *temp = mercado->caixas[i]->fila->frente;
+                while (temp)
+                {
+                    tamanho_fila++;
+                    temp = temp->proximo;
+                }
+
+                if (tamanho_fila < menor_tamanho_fila)
+                {
+                    menor_tamanho_fila = tamanho_fila;
+                    menor_fila_index = i;
+                }
+            }
+        }
+
+        // Realocar clientes para o caixa com a menor fila
         NodaFila *temp = caixa->fila->frente;
         while (temp)
         {
             Cliente *cliente = temp->cliente;
-            int novo_caixa = -1;
 
-            // Encontrar um novo caixa aberto para o cliente
-            for (int i = 0; i < MAX_CAIXAS; i++)
+            if (menor_fila_index != -1)
             {
-                if (mercado->caixas[i]->estado)
-                {
-                    novo_caixa = i;
-                    break;
-                }
-            }
-
-            if (novo_caixa != -1)
-            {
-                adicionar_cliente(mercado->caixas[novo_caixa]->fila, cliente);
-                printf("Cliente %s realocado para o caixa %d.\n", cliente->nome, novo_caixa + 1);
+                adicionar_cliente(mercado->caixas[menor_fila_index]->fila, cliente);
+                printf("\n- Cliente %s realocado para o caixa %d.\n", cliente->nome, menor_fila_index + 1);
             }
             else
             {
-                printf("Nenhum caixa aberto disponível! Cliente %s será perdido.\n", cliente->nome);
+                printf("\nNenhum caixa aberto disponível! Cliente %s será perdido.\n", cliente->nome);
                 free(cliente);
             }
 
@@ -195,14 +212,14 @@ void abrir_fechar_caixa(Supermercado *mercado)
     }
     else
     {
-        printf("Abrindo caixa %d...\n", id_caixa);
+        printf("\nAbrindo caixa %d...\n", id_caixa);
         caixa->estado = 1;
     }
 }
 
 void imprimir_clientes_espera(Supermercado *mercado)
 {
-    printf("\n=== Clientes em Espera ===\n");
+    printf("\n========= Clientes em Espera =========\n");
     for (int i = 0; i < MAX_CAIXAS; i++)
     {
         // if (mercado->caixas[i]->estado)
@@ -210,14 +227,14 @@ void imprimir_clientes_espera(Supermercado *mercado)
         //     printf("Caixa %d [%s]:\n", mercado->caixas[i]->id, mercado->caixas[i]->estado ? "Aberto" : "Fechado");
         //     imprimir_fila(mercado->caixas[i]->fila);
         // }
-        printf("Caixa %d [%s]:\n", mercado->caixas[i]->id, mercado->caixas[i]->estado ? "Aberto" : "Fechado");
+        printf("\nCaixa %d [%s]:\n", mercado->caixas[i]->id, mercado->caixas[i]->estado ? "Aberto" : "Fechado");
         imprimir_fila(mercado->caixas[i]->fila);
     }
 }
 
 void imprimir_status(Supermercado *mercado)
 {
-    printf("\n=== Status dos Caixas ===\n");
+    printf("\n========= Status dos Caixas =========\n");
     for (int i = 0; i < MAX_CAIXAS; i++)
     {
         int qtd_clientes = 0;
