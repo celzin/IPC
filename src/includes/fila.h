@@ -18,7 +18,7 @@ typedef struct
 
 FilaPrioridade *criar_fila();
 void adicionar_cliente(FilaPrioridade *fila, Cliente *cliente);
-Cliente *atender_cliente(FilaPrioridade *fila); // Retorna Cliente*
+Cliente *atender_cliente(FilaPrioridade *fila);
 void imprimir_fila(FilaPrioridade *fila);
 
 #endif

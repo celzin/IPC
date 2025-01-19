@@ -23,7 +23,7 @@ int validar_cpf(const char *cpf)
             return 0;
     }
 
-    return 1; // CPF válido
+    return 1;
 }
 
 Cliente *criar_cliente(const char *nome, const char *cpf, int prioridade, int itens)
