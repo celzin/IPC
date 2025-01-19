@@ -98,8 +98,20 @@ void cadastrar_cliente(Supermercado *mercado)
 void atender_cliente_supermercado(Supermercado *mercado)
 {
     int id_caixa;
-    printf("Escolha o caixa (1-%d): ", MAX_CAIXAS);
-    scanf("%d", &id_caixa);
+    do // Validacao da escolha de Caixa
+    {
+        printf("Escolha o caixa (1-%d) para abrir ou fechar: ", MAX_CAIXAS);
+        if (scanf("%d", &id_caixa) != 1)
+        {
+            printf("Entrada inválida! Digite um número entre 1 e %d.\n", MAX_CAIXAS);
+            while (getchar() != '\n');
+            id_caixa = 0; // Define como inválido para repetir o loop
+        }
+        else if (id_caixa < 1 || id_caixa > MAX_CAIXAS)
+        {
+            printf("Número de caixa inválido! Escolha entre 1 e %d.\n", MAX_CAIXAS);
+        }
+    } while (id_caixa < 1 || id_caixa > MAX_CAIXAS);
 
     if (id_caixa < 1 || id_caixa > MAX_CAIXAS)
     {
@@ -164,7 +176,7 @@ void abrir_fechar_caixa(Supermercado *mercado)
 
         // Encontrar o caixa aberto com menos clientes
         int menor_fila_index = -1;
-        int menor_tamanho_fila = __INT_MAX__; // Inicializa com um valor alto
+        int menor_tamanho_fila = 999999; // Inicializa com um valor alto
 
         for (int i = 0; i < MAX_CAIXAS; i++)
         {
