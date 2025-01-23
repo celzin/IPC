@@ -100,7 +100,7 @@ void atender_cliente_supermercado(Supermercado *mercado)
     int id_caixa;
     do // Validacao da escolha de Caixa
     {
-        printf("Escolha o caixa (1-%d) para abrir ou fechar: ", MAX_CAIXAS);
+        printf("Escolha o caixa (1-%d) para atender: ", MAX_CAIXAS);
         if (scanf("%d", &id_caixa) != 1)
         {
             printf("Entrada inválida! Digite um número entre 1 e %d.\n", MAX_CAIXAS);
