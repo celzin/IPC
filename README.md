@@ -14,7 +14,9 @@
 ## ⚠️ Resumo do Problema 
 
 <div align="justify">
+
 Imagine que você foi contratado por um supermercado local para desenvolver um **sistema de gestão de filas** para os caixas. Esse supermercado deseja oferecer um atendimento eficiente e justo para todos os clientes, mas com atenção especial para aqueles que necessitam de prioridade, como idosos, gestantes e pessoas com deficiência. Para tanto, implemente um programa em C que simule um sistema de gerenciamento de filas em um supermercado, utilizando estruturas, listas encadeadas e filas com prioridade para organizar o atendimento dos clientes.
+
 </div>
 
 ## ⚙️ Especificações
