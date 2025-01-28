@@ -1,14 +1,14 @@
 <div align="center" style="display: inline_block">
   <img align="center" alt="VS" src="https://img.shields.io/badge/Visual_Studio_Code-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white" />
   <img align="center" alt="Linux" src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black" />
-  <img align="center" alt="C++" src="https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white" />
+  <img align="center" alt="C" src="https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white" />
 </div>
 
 # 🗂️​ Estrutura do Repositório
 
 - `src/`: Diretório com os scripts C.
 - `imgs/`: Diretório com as imagens utilizadas na documentação.
-- `imgs/`: Diretório contendo as instruções do trabalho em PDF.
+- `docs/`: Diretório contendo as instruções do trabalho em PDF.
 
 # ⚠️ Apresentação do Problema 
 
@@ -108,7 +108,7 @@ Esse programa possui um arquivo `Makefile` que realiza todo o procedimento de co
     <th>Contato</th>
   </tr>
   <tr>
-    <td>Celso</td>
-    <td><a href="https://t.me/celso_vsf"><img align="center" height="20px" width="90px" src="https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white"/> </td>
+    <td>Celso Vinícius</td>
+    <td><a href="https://www.linkedin.com/in/celsovinicius23/"><img align="center" height="20px" width="90px" src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"/> </td>
   </tr>
 </table>
