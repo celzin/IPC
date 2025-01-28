@@ -15,7 +15,13 @@ int main()
         printf("5. Imprimir Status dos Caixas\n");
         printf("0. Sair\n");
         printf("Opção: ");
-        scanf("%d", &opcao);
+
+        if (scanf("%d", &opcao) != 1) {
+            printf("Entrada inválida! Digite um número de 0 a 5.\n");
+            while (getchar() != '\n');
+            opcao = -1;
+            continue;
+        }
 
         switch (opcao)
         {
@@ -35,9 +41,10 @@ int main()
             imprimir_status(mercado);
             break;
         case 0:
+            printf("\nEncerrando...\n");
             break;
         default:
-            printf("Opção inválida!\n");
+            printf("\nOpção inválida!\n");
         }
     } while (opcao != 0);
 
